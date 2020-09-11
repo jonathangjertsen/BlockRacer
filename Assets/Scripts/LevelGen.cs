@@ -17,8 +17,8 @@ public class LevelGen : MonoBehaviour
     void GenerateLevel()
     {
         // Select level
-        // NOTE: possible overflow
-        Level level = levels[GameControl.level];
+        // NOTE: not correct, just to prevent crashing for now
+        Level level = levels[GameControl.level % levels.Length];
 
         // Populate target score table
         ScoreTarget.SetTarget("gold", level.goldScore);
