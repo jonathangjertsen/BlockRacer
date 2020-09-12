@@ -29,7 +29,7 @@ public class GameControl : MonoBehaviour
         gameOver = false;
         win = false;
 
-        Player player = FindObjectOfType<Player>();
+        Player player = Player.Find();
         if (player)
         {
             player.OnWin += Win;
@@ -40,6 +40,16 @@ public class GameControl : MonoBehaviour
     private void Start()
     {
         Init();
+    }
+
+    private void Update()
+    {
+        Player player = Player.Find();
+        if (player)
+        {
+            int score = player.GetScore();
+            ScoreTarget.CheckTargets(score);
+        }
     }
 
     public void Win()

@@ -65,6 +65,17 @@ public class Player : MonoBehaviour
     private bool steeringAllowed = true;
     private bool jumpedThisFrame = false;
 
+    private static Player instance;
+
+    public static Player Find()
+    {
+        if (!instance)
+        {
+            instance = FindObjectOfType<Player>();
+        }
+        return instance;
+    }
+
     void Start()
     {
         speed = 0;
@@ -280,6 +291,11 @@ public class Player : MonoBehaviour
             score += scorePerCoin;
             coinCollected = false;
         }
+        return (int)score;
+    }
+
+    public int GetScore()
+    {
         return (int)score;
     }
 
