@@ -3,29 +3,54 @@ using System;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody rb;
     public event Action OnWin;
     public event Action OnDie;
 
-    public float targetSpeed = 20f;
-    public float sidewardForce = 100f;
-    public float jumpForce = 100f;
+    [Header("References")]
+    public Rigidbody rb;
 
-    public float groundLockThresholdNeg = 0.1f;
-    public float groundLockThresholdPos = 0.1f;
-    public float groundHeight = 2.0f;
-    public float deathBarrierHeight = -3.0f;
-    public float cameraReleaseHeight = -3.0f;
+    [Header("Forward speed")]
+    [Tooltip("Target forward velocity for the ball. The ball will speed up or slow down until this speed is reached.")]
+    public float targetSpeed;
+    [Tooltip("How much forward velocity to add when interacting with boost panels")]
+    public float boostImpact;
+    [Tooltip("Exponential factor when decelerating")]
+    public float deceleration;
+    [Tooltip("Exponential factor when accelerating")]
+    public float acceleration;
 
-    public float boostImpact = 10f;
-    public float deceleration = 1f;
-    public float sideBreakForce = 0.1f;
+    [Header("Steering")]
+    [Tooltip("How much the velocity changes when moving from side to side")]
+    public float sidewardForce;
+    [Tooltip("How much the friction to apply when breaking")]
+    public float sideBreakForce;
 
-    public float speedToScoreFactor = 0.01f;
-    public float speedToScoreExp = 3.4f;
-    public float scorePerCoin = 500f;
-    public int groundCheckMaxCounter = 10;
-    public float maxGroundDistanceForInteraction = 2f;
+    [Header("Jumping")]
+    [Tooltip("How much the vertical velocity changes when moving from side to side")]
+    public float jumpForce;
+    [Tooltip("Wile E Coyote term")]
+    public int groundCheckMaxCounter;
+    [Tooltip("How close the ball must be to a block in order to interact with it")]
+    public float maxGroundDistanceForInteraction;
+
+    [Header("Smooth rolling")]
+    public float groundLockThresholdNeg;
+    public float groundLockThresholdPos;
+    public float groundHeight;
+
+    [Header("Death barrier")]
+    [Tooltip("If the ball falls below this plane, we die")]
+    public float deathBarrierHeight;
+    [Tooltip("If the ball falls below this plane, the camera will start following the ball each frame")]
+    public float cameraReleaseHeight;
+
+    [Header("Score calculation")]
+    [Tooltip("Score due to speed is speedToScoreFactor * speed ^ speedToScoreExp")]
+    public float speedToScoreFactor;
+    [Tooltip("Score due to speed is speedToScoreFactor * speed ^ speedToScoreExp")]
+    public float speedToScoreExp;
+    [Tooltip("How much score to add per coin collected")]
+    public float scorePerCoin;
 
     private float score = 0;
     private bool midAir = false;
@@ -196,7 +221,17 @@ public class Player : MonoBehaviour
     void AdjustForwardSpeed()
     {
         rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, speed);
-        speed -= (speed - targetSpeed) * deceleration;
+
+        float independentSpeedChangeTerm = (speed - targetSpeed) * Time.fixedDeltaTime;
+
+        if (speed < targetSpeed)
+        {
+            speed -= independentSpeedChangeTerm * acceleration;
+        }
+        else
+        {
+            speed -= independentSpeedChangeTerm * deceleration;
+        }
     }
 
     public void Steer(float factor)
@@ -206,7 +241,12 @@ public class Player : MonoBehaviour
             return;
         }
 
-        rb.AddForce(factor * sidewardForce * Time.fixedDeltaTime, 0, 0, ForceMode.VelocityChange);
+        rb.AddForce(
+            factor * sidewardForce * Time.fixedDeltaTime,
+            0,
+            0,
+            ForceMode.VelocityChange
+        );
     }
 
     public int UpdateScore()

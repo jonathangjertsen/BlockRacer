@@ -1302,21 +1302,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 598476027}
   targetSpeed: 25
+  boostImpact: 10
+  deceleration: 1
+  acceleration: 30
   sidewardForce: 100
+  sideBreakForce: 0.1
   jumpForce: 2500
+  groundCheckMaxCounter: 10
+  maxGroundDistanceForInteraction: 2
   groundLockThresholdNeg: 1.15
   groundLockThresholdPos: 2.98
   groundHeight: 2
   deathBarrierHeight: -2
   cameraReleaseHeight: -2
-  boostImpact: 10
-  deceleration: 0.02
-  sideBreakForce: 0.1
   speedToScoreFactor: 0.01
   speedToScoreExp: 1.4
   scorePerCoin: 500
-  groundCheckMaxCounter: 10
-  maxGroundDistanceForInteraction: 2
 --- !u!1 &616480194
 GameObject:
   m_ObjectHideFlags: 0
