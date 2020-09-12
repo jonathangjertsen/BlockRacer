@@ -29,6 +29,18 @@ public class GameControl : MonoBehaviour
     {
         gameOver = false;
         win = false;
+
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.OnWin += Win;
+            player.OnDie += GameOver;
+        }
+    }
+
+    private void Start()
+    {
+        Init();
     }
 
     public void Win()

@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
     public Rigidbody rb;
+    public event Action OnWin;
+    public event Action OnDie;
 
     public float targetSpeed = 20f;
     public float sidewardForce = 100f;
     public float jumpForce = 100f;
-    public string leftKey = "a";
-    public string rightKey = "d";
-    public string sideBreakKey = "s";
-    public string jumpKey = "space";
-    public string restartKey = "r";
 
     public float groundLockThresholdNeg = 0.1f;
     public float groundLockThresholdPos = 0.1f;
@@ -34,8 +32,8 @@ public class Player : MonoBehaviour
     private float speed = 0;
     private bool coinCollected = false;
     private int groundCheckCounter = 0;
-    private GameControl gameControl = null;
     private bool steeringAllowed = true;
+    private bool jumpedThisFrame = false;
 
     void Start()
     {
@@ -96,9 +94,9 @@ public class Player : MonoBehaviour
         ground.Touch();
     }
 
-    void Jump()
+    public void Jump()
     {
-        if (!midAir)
+        if (!midAir && !jumpedThisFrame)
         {
             UnconditionalJump();
         }
@@ -106,8 +104,13 @@ public class Player : MonoBehaviour
 
     void UnconditionalJump()
     {
-        rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+        rb.velocity = new Vector3(
+            rb.velocity.x,
+            jumpForce * Time.fixedDeltaTime,
+            rb.velocity.z
+        );
         midAir = true;
+        jumpedThisFrame = true;
     }
 
     void Boost()
@@ -120,7 +123,7 @@ public class Player : MonoBehaviour
         coinCollected = true;
     }
 
-    void Stop()
+    public void Stop()
     {
         targetSpeed = 0f;
         steeringAllowed = false;
@@ -128,14 +131,13 @@ public class Player : MonoBehaviour
 
     void Win()
     {
-        GetGameControl().Win();
         Stop();
+        OnWin?.Invoke();
     }
 
     void CheckGround()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit))
+        if (Physics.Raycast(transform.position, new Vector3(0, -1, 0), out RaycastHit hit))
         {
             if (hit.distance < maxGroundDistanceForInteraction)
             {
@@ -158,15 +160,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    GameControl GetGameControl()
-    {
-        if (gameControl == null)
-        {
-            gameControl = FindObjectOfType<GameControl>();
-        }
-        return gameControl;
-    }
-
     void CheckDeathBarrier()
     {
         if (transform.position.y < deathBarrierHeight)
@@ -177,8 +170,8 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        GetGameControl().GameOver();
         Stop();
+        OnDie?.Invoke();
     }
 
     public void Move(float x)
@@ -186,14 +179,13 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(x, transform.position.y, transform.position.z);
     }
 
-    void Restart()
+    public void SideBreak()
     {
-        GetGameControl().Restart();
-        Stop();
-    }
+        if (!steeringAllowed)
+        {
+            return;
+        }
 
-    void SideBreak()
-    {
         rb.velocity = new Vector3(
             rb.velocity.x * (1 - sideBreakForce),
             rb.velocity.y,
@@ -207,8 +199,13 @@ public class Player : MonoBehaviour
         speed -= (speed - targetSpeed) * deceleration;
     }
 
-    void Steer(float factor)
+    public void Steer(float factor)
     {
+        if (!steeringAllowed)
+        {
+            return;
+        }
+
         rb.AddForce(factor * sidewardForce * Time.fixedDeltaTime, 0, 0, ForceMode.VelocityChange);
     }
 
@@ -233,40 +230,16 @@ public class Player : MonoBehaviour
         return transform.position.y < cameraReleaseHeight;
     }
 
-    void HandleInputs()
-    {
-        if (Input.GetKey(restartKey))
-        {
-            Restart();
-        }
-
-        if (steeringAllowed)
-        {
-            if (Input.GetKey(sideBreakKey))
-            {
-                SideBreak();
-            }
-            if (Input.GetKey(leftKey))
-            {
-                Steer(-1);
-            }
-            if (Input.GetKey(rightKey))
-            {
-                Steer(+1);
-            }
-            if (Input.GetKey(jumpKey))
-            {
-                Jump();
-            }
-        }
-    }
-
     void FixedUpdate()
     {
-        HandleInputs();
         AdjustForwardSpeed();
         EnsureSmoothRolling();
         CheckGround();
         CheckDeathBarrier();
+    }
+
+    private void Update()
+    {
+        jumpedThisFrame = false;
     }
 }

@@ -5,13 +5,6 @@ public class CameraFollow : MonoBehaviour
     public Player player;
     private Vector3 offset;
 
-    public string leftKey;
-    public string rightKey;
-    public string upKey;
-    public string downKey;
-    public string zoomInKey;
-    public string zoomOutKey;
-    public string resetKey;
 
     public Vector3 rotationSpeed;
     public float zoomSpeed;
@@ -26,9 +19,9 @@ public class CameraFollow : MonoBehaviour
         originalRotation = transform.rotation;
     }
 
-    void Steer(float upDown, float side)
+    public void Steer(float upDown)
     {
-        if (upDown == 0f && side == 0f)
+        if (upDown == 0f)
         {
             return;
         }
@@ -38,19 +31,14 @@ public class CameraFollow : MonoBehaviour
             transform.right,
             rotationSpeed[1] * upDown
         );
-        transform.RotateAround(
-            player.transform.position,
-            transform.up,
-            rotationSpeed[2] * side
-        );
     }
 
-    void Reset()
+    public void Reset()
     {
         transform.rotation = originalRotation;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // Follow player's x and z but not y
         Vector3 newPosition = player.transform.position + offset;
@@ -60,47 +48,12 @@ public class CameraFollow : MonoBehaviour
         if (player.ShouldFollowYAxis())
         {
             Quaternion toRotation = Quaternion.LookRotation(player.transform.position - transform.position);
-            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, followSpeed * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, followSpeed * Time.deltaTime);
         }
+    }
 
-        // Rotation with arrow keys
-        float upDown = 0f;
-        float leftRight = 0f;
-        if (leftKey != "" && Input.GetKey(leftKey))
-        {
-            leftRight -= 1f;
-        }
-        if (rightKey != "" && Input.GetKey(rightKey))
-        {
-            leftRight += 1f;
-        }
-        if (downKey != "" && Input.GetKey(downKey))
-        {
-            upDown -= 1f;
-        }
-        if (upKey != "" && Input.GetKey(upKey))
-        {
-            upDown += 1f;
-        }
-        Steer(upDown, leftRight);
-
-        float zoom = 0;
-        if (zoomInKey != "" && Input.GetKey(zoomInKey))
-        {
-            zoom -= 1f;
-        }
-        if (zoomOutKey != "" && Input.GetKey(zoomOutKey))
-        {
-            zoom += 1f;
-        }
-        if (zoom != 0f)
-        {
-            offset *= 1 + zoom * zoomSpeed;
-        }
-
-        if (Input.GetKey(resetKey))
-        {
-            Reset();
-        }
+    public void Zoom(float zoom)
+    {
+        offset *= 1 + zoom * zoomSpeed;
     }
 }
