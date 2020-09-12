@@ -6,6 +6,7 @@ public class InputHandler : MonoBehaviour
     public InputMapping ballRight;
     public InputMapping ballSideBreak;
     public InputMapping ballJump;
+    public InputMapping ballJumpReleased;
 
     public InputMapping cameraUp;
     public InputMapping cameraDown;
@@ -24,6 +25,7 @@ public class InputHandler : MonoBehaviour
         Check(ballRight);
         Check(ballSideBreak);
         Check(ballJump);
+        Check(ballJumpReleased);
 
         Check(cameraUp);
         Check(cameraDown);

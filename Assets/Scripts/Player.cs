@@ -28,15 +28,19 @@ public class Player : MonoBehaviour
     [Header("Jumping")]
     [Tooltip("How much the vertical velocity changes when moving from side to side")]
     public float jumpForce;
-    [Tooltip("Wile E Coyote term")]
-    public int groundCheckMaxCounter;
-    [Tooltip("How close the ball must be to a block in order to interact with it")]
-    public float maxGroundDistanceForInteraction;
+    [Tooltip("Fall multiplier based on https://www.youtube.com/watch?v=7KiK0Aqtmzc")]
+    public float fallMultiplier;
+    [Tooltip("Released jump multiplier based on https://www.youtube.com/watch?v=7KiK0Aqtmzc")]
+    public float releasedJumpMultiplier;
 
     [Header("Smooth rolling")]
     public float groundLockThresholdNeg;
     public float groundLockThresholdPos;
     public float groundHeight;
+    [Tooltip("Wile E Coyote term")]
+    public int groundCheckMaxCounter;
+    [Tooltip("How close the ball must be to a block in order to interact with it")]
+    public float maxGroundDistanceForInteraction;
 
     [Header("Death barrier")]
     [Tooltip("If the ball falls below this plane, we die")]
@@ -54,6 +58,7 @@ public class Player : MonoBehaviour
 
     private float score = 0;
     private bool midAir = false;
+    private bool jumpHeld = false;
     private float speed = 0;
     private bool coinCollected = false;
     private int groundCheckCounter = 0;
@@ -125,6 +130,12 @@ public class Player : MonoBehaviour
         {
             UnconditionalJump();
         }
+        jumpHeld = true;
+    }
+
+    public void ReleaseJump()
+    {
+        jumpHeld = false;
     }
 
     void UnconditionalJump()
@@ -234,6 +245,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    void AdjustVerticalSpeed()
+    {
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
+        else if (rb.velocity.y > 0 && !jumpHeld)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (releasedJumpMultiplier - 1) * Time.fixedDeltaTime;
+        }
+    }
+
     public void Steer(float factor)
     {
         if (!steeringAllowed)
@@ -273,6 +296,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         AdjustForwardSpeed();
+        AdjustVerticalSpeed();
         EnsureSmoothRolling();
         CheckGround();
         CheckDeathBarrier();

@@ -1308,11 +1308,13 @@ MonoBehaviour:
   sidewardForce: 100
   sideBreakForce: 0.1
   jumpForce: 2500
-  groundCheckMaxCounter: 10
-  maxGroundDistanceForInteraction: 2
+  fallMultiplier: 2
+  releasedJumpMultiplier: 2
   groundLockThresholdNeg: 1.15
   groundLockThresholdPos: 2.98
   groundHeight: 2
+  groundCheckMaxCounter: 10
+  maxGroundDistanceForInteraction: 2
   deathBarrierHeight: -2
   cameraReleaseHeight: -2
   speedToScoreFactor: 0.01
@@ -2659,6 +2661,24 @@ MonoBehaviour:
         - m_Target: {fileID: 598476032}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
           m_MethodName: Jump
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  ballJumpReleased:
+    key: space
+    variant: 2
+    handler:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 598476032}
+          m_TargetAssemblyTypeName: Player, Assembly-CSharp
+          m_MethodName: ReleaseJump
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
