@@ -45,6 +45,7 @@ public class GameControl : MonoBehaviour
             player.OnWin += Win;
             player.OnDie += GameOver;
             player.OnJump += Jump;
+            player.OnStart += RemoveLoadingScreen;
         }
     }
 
@@ -65,7 +66,11 @@ public class GameControl : MonoBehaviour
 
     public void Jump()
     {
-        jumpSource.Play();
+        Player player = Player.Find();
+        if (player && player.JumpAllowed())
+        {
+           jumpSource.Play();
+        }
     }
 
     public void Win()
@@ -117,6 +122,24 @@ public class GameControl : MonoBehaviour
             fs.gameObject.SetActive(true);
         }
         Restart();
+    }
+
+    public void ShowLoadingScreen()
+    {
+        LoadingScreen ls = FindObjectOfType<LoadingScreen>(true);
+        if (ls)
+        {
+            ls.gameObject.SetActive(true);
+        }
+    }
+
+    public void RemoveLoadingScreen()
+    {
+        LoadingScreen ls = FindObjectOfType<LoadingScreen>(true);
+        if (ls)
+        {
+            ls.gameObject.SetActive(false);
+        }
     }
 
     public void Pause()
@@ -175,6 +198,7 @@ public class GameControl : MonoBehaviour
 
     public void RestartNow()
     {
+        ShowLoadingScreen();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         restartIncoming = false;
         Init();
@@ -183,7 +207,7 @@ public class GameControl : MonoBehaviour
     public void NextLevel()
     {
         level += 1;
-        Restart();
+        RestartNow();
     }
 
     public void LoadMenu()

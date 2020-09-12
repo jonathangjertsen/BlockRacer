@@ -3,6 +3,7 @@ using System;
 
 public class Player : MonoBehaviour
 {
+    public event Action OnStart;
     public event Action OnWin;
     public event Action OnDie;
     public event Action OnJump;
@@ -33,6 +34,10 @@ public class Player : MonoBehaviour
     public float fallMultiplier;
     [Tooltip("Released jump multiplier based on https://www.youtube.com/watch?v=7KiK0Aqtmzc")]
     public float releasedJumpMultiplier;
+    [Tooltip("Mim number of physics frames that must pass between jumps")]
+    public int minFramesBetweenJump;
+    [Tooltip("Jump velocity will be proportional to (speed/originalTargetSpeed)^speedRatioToJumpForceExponent")]
+    public float speedRatioToJumpForceExponent;
 
     [Header("Smooth rolling")]
     public float groundLockThresholdNeg;
@@ -65,6 +70,9 @@ public class Player : MonoBehaviour
     private int groundCheckCounter = 0;
     private bool steeringAllowed = true;
     private bool jumpedThisFrame = false;
+    private float startingTargetSpeed;
+    private int framesSinceLastJump;
+    private bool properlyStarted = false;
 
     private static Player instance;
 
@@ -79,8 +87,10 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        speed = targetSpeed;
+        speed = startingTargetSpeed = targetSpeed;
+        framesSinceLastJump = 0;
         score = 0;
+        properlyStarted = false;
     }
 
     private void EnsureSmoothRolling()
@@ -108,6 +118,12 @@ public class Player : MonoBehaviour
 
     void InteractWithGround(Ground ground)
     {
+        if (!properlyStarted)
+        {
+            properlyStarted = true;
+            OnStart?.Invoke();
+        }
+
         if (ground == null || ground.Touched())
         {
             return;
@@ -136,9 +152,14 @@ public class Player : MonoBehaviour
         ground.Touch();
     }
 
+    public bool JumpAllowed()
+    {
+        return !midAir && !jumpedThisFrame && (framesSinceLastJump >= minFramesBetweenJump);
+    }
+
     public void Jump()
     {
-        if (!midAir && !jumpedThisFrame)
+        if (JumpAllowed())
         {
             UnconditionalJump();
         }
@@ -152,14 +173,18 @@ public class Player : MonoBehaviour
 
     void UnconditionalJump()
     {
+        OnJump?.Invoke();
         rb.velocity = new Vector3(
             rb.velocity.x,
-            jumpForce * Time.fixedDeltaTime,
+            jumpForce * Time.fixedDeltaTime * Mathf.Pow(
+                speed / startingTargetSpeed,
+                speedRatioToJumpForceExponent
+            ),
             rb.velocity.z
         );
         midAir = true;
         jumpedThisFrame = true;
-        OnJump?.Invoke();
+        framesSinceLastJump = 0;
     }
 
     void Boost()
@@ -311,11 +336,17 @@ public class Player : MonoBehaviour
         return transform.position.y < cameraReleaseHeight;
     }
 
+    void UpdateJumpLimiting()
+    {
+        framesSinceLastJump++;
+    }
+
     void FixedUpdate()
     {
         AdjustForwardSpeed();
         AdjustVerticalSpeed();
         EnsureSmoothRolling();
+        UpdateJumpLimiting();
         CheckGround();
         CheckDeathBarrier();
     }
