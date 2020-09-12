@@ -5702,6 +5702,10 @@ MonoBehaviour:
     goldScore: 30000
     silverScore: 28000
     bronzeScore: 26000
+  - groundMap: {fileID: 2800000, guid: 164cf39694ba3e94ea98d9b018fbec8c, type: 3}
+    goldScore: 1
+    silverScore: 1
+    bronzeScore: 1
   - groundMap: {fileID: 2800000, guid: f38e5d0a9980d204abac58714faa01d8, type: 3}
     goldScore: 1
     silverScore: 1

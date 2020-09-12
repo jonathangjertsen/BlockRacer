@@ -48,9 +48,11 @@ public class LevelGen : MonoBehaviour
         int g = (int)(color.g * 255);
         int b = (int)(color.b * 255);
 
+        bool found = false;
         if ((r, g, b) == (playerR, playerG, playerB))
         {
             FindObjectOfType<Player>().Move(x * scale);
+            found = true;
         }
 
         foreach (ColorToPrefab c in colorMap)
@@ -65,8 +67,14 @@ public class LevelGen : MonoBehaviour
                     transform
                 );
                 go.GetComponent<Ground>().audioCfg = c.audio;
+                found = true;
                 break;
             }
+        }
+
+        if (!found)
+        {
+            print($"WARNING: nothing found for {r}, {g}, {b}");
         }
     }
 }
