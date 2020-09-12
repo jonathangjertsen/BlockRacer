@@ -2,6 +2,8 @@
 
 public class Ground : MonoBehaviour
 {
+    public AudioRoundRobin audioCfg;
+
     private bool touched = false;
 
     public void Touch()
@@ -9,6 +11,7 @@ public class Ground : MonoBehaviour
         touched = true;
         TouchedPhysics();
         TouchedAppearance();
+        TouchedSound();
         OnTouch();
     }
 
@@ -26,6 +29,11 @@ public class Ground : MonoBehaviour
         MeshRenderer mr = GetComponent<MeshRenderer>();
         Color prevColor = mr.material.GetColor("GroundAlbedo");
         mr.material.SetColor("GroundAlbedo", prevColor * 0.30f);
+    }
+
+    private void TouchedSound()
+    {
+        audioCfg.Play();
     }
 
     public bool Touched()

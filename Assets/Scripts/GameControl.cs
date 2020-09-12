@@ -6,6 +6,15 @@ public class GameControl : MonoBehaviour
     private static bool created = false;
     private static bool restartIncoming = false;
 
+    public AudioClip goldClip;
+    public AudioClip silverClip;
+    public AudioClip bronzeClip;
+    public AudioClip winClip;
+    public AudioSource sfxSource;
+    public AudioSource musicSource;
+    public AudioSource dieSource;
+    public AudioSource jumpSource;
+
     public static int level = 0;
 
     public float restartDelay;
@@ -20,6 +29,7 @@ public class GameControl : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             Init();
+            musicSource.Play();
         }
         created = true;
     }
@@ -34,6 +44,7 @@ public class GameControl : MonoBehaviour
         {
             player.OnWin += Win;
             player.OnDie += GameOver;
+            player.OnJump += Jump;
         }
     }
 
@@ -52,6 +63,11 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    public void Jump()
+    {
+        jumpSource.Play();
+    }
+
     public void Win()
     {
         if (win || gameOver)
@@ -65,6 +81,23 @@ public class GameControl : MonoBehaviour
         {
             ws.gameObject.SetActive(true);
         }
+
+        if (ScoreTarget.GetAchieved("gold"))
+        {
+            sfxSource.PlayOneShot(goldClip);
+        }
+        else if (ScoreTarget.GetAchieved("silver"))
+        {
+            sfxSource.PlayOneShot(silverClip);
+        }
+        else if (ScoreTarget.GetAchieved("bronze"))
+        {
+            sfxSource.PlayOneShot(bronzeClip);
+        }
+        else
+        {
+            sfxSource.PlayOneShot(winClip);
+        }
     }
 
     public void GameOver()
@@ -75,6 +108,9 @@ public class GameControl : MonoBehaviour
         }
 
         gameOver = true;
+
+        dieSource.Play();
+
         FailScreen fs = FindObjectOfType<FailScreen>(true);
         if (fs)
         {

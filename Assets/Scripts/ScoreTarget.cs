@@ -12,7 +12,7 @@ public class ScoreTarget : MonoBehaviour
     private int score;
     private bool achieved;
 
-    private void Start()
+    void Start()
     {
         medal.color = notAchievedColor;
         text.color = notAchievedColor;
@@ -46,5 +46,18 @@ public class ScoreTarget : MonoBehaviour
     {
         medal.color = achievedColor;
         text.color = achievedColor;
+        achieved = true;
+    }
+
+    public static bool GetAchieved(string match)
+    {
+        foreach (ScoreTarget target in FindObjectsOfType<ScoreTarget>(true))
+        {
+            if (match == target.match)
+            {
+                return target.achieved;
+            }
+        }
+        return false;
     }
 }

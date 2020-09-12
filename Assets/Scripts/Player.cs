@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public event Action OnWin;
     public event Action OnDie;
+    public event Action OnJump;
 
     [Header("References")]
     public Rigidbody rb;
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
     private float score = 0;
     private bool midAir = false;
     private bool jumpHeld = false;
-    private float speed = 0;
+    private float speed;
     private bool coinCollected = false;
     private int groundCheckCounter = 0;
     private bool steeringAllowed = true;
@@ -78,7 +79,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        speed = 0;
+        speed = targetSpeed;
         score = 0;
     }
 
@@ -158,6 +159,7 @@ public class Player : MonoBehaviour
         );
         midAir = true;
         jumpedThisFrame = true;
+        OnJump?.Invoke();
     }
 
     void Boost()

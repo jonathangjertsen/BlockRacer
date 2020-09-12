@@ -58,12 +58,13 @@ public class LevelGen : MonoBehaviour
             if ((r, g, b) == (c.r, c.g, c.b))
             {
                 Vector3 position = new Vector3(x * scale, 0, y * scale);
-                Instantiate(
+                GameObject go = Instantiate(
                     c.prefab,
                     position,
                     Quaternion.identity,
                     transform
                 );
+                go.GetComponent<Ground>().audioCfg = c.audio;
                 break;
             }
         }

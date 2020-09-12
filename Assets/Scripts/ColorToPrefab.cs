@@ -7,4 +7,5 @@ public class ColorToPrefab
     public int g;
     public int b;
     public GameObject prefab;
+    public AudioRoundRobin audio;
 }
