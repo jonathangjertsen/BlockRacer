@@ -38,6 +38,7 @@ public class GameControl : MonoBehaviour
     {
         gameOver = false;
         win = false;
+        Unpause();
 
         Player player = Player.Find();
         if (player)
@@ -160,12 +161,12 @@ public class GameControl : MonoBehaviour
 
     public void Unpause()
     {
-        Time.timeScale = 1;
         if (!paused)
         {
             return;
         }
 
+        Time.timeScale = 1;
         paused = false;
         PauseScreen ps = FindObjectOfType<PauseScreen>(true);
         if (ps)
