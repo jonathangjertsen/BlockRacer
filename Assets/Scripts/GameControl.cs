@@ -160,13 +160,13 @@ public class GameControl : MonoBehaviour
 
     public void Unpause()
     {
+        Time.timeScale = 1;
         if (!paused)
         {
             return;
         }
 
         paused = false;
-        Time.timeScale = 1;
         PauseScreen ps = FindObjectOfType<PauseScreen>(true);
         if (ps)
         {
