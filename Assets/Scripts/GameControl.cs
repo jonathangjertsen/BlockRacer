@@ -212,6 +212,6 @@ public class GameControl : MonoBehaviour
 
     public void LoadMenu()
     {
-        Debug.Log("Loaded menu");
+        Application.Quit();
     }
 }

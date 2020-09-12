@@ -2075,7 +2075,7 @@ GameObject:
   - component: {fileID: 711249345}
   - component: {fileID: 711249344}
   m_Layer: 5
-  m_Name: MenuText
+  m_Name: ExitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Menu (M)
+  m_text: Exit (O)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2380,7 +2380,7 @@ GameObject:
   - component: {fileID: 730500323}
   - component: {fileID: 730500322}
   m_Layer: 5
-  m_Name: MenuButton
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3791,13 +3791,13 @@ MonoBehaviour:
     handler:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+        - m_Target: {fileID: 1363882398}
+          m_TargetAssemblyTypeName: GameControl, Assembly-CSharp
+          m_MethodName: LoadMenu
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -4261,7 +4261,7 @@ GameObject:
   - component: {fileID: 1249558038}
   - component: {fileID: 1249558037}
   m_Layer: 5
-  m_Name: MenuText
+  m_Name: ExitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4305,7 +4305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Menu (M)
+  m_text: Exit (O)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5559,7 +5559,7 @@ GameObject:
   - component: {fileID: 1958791142}
   - component: {fileID: 1958791141}
   m_Layer: 5
-  m_Name: MenuButton
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
