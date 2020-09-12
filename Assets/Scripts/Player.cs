@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public event Action OnWin;
     public event Action OnDie;
     public event Action OnJump;
+    public event Action OnStop;
 
     [Header("References")]
     public Rigidbody rb;
@@ -199,6 +200,7 @@ public class Player : MonoBehaviour
 
     public void Stop()
     {
+        OnStop?.Invoke();
         targetSpeed = 0f;
         steeringAllowed = false;
     }
@@ -248,9 +250,9 @@ public class Player : MonoBehaviour
         OnDie?.Invoke();
     }
 
-    public void Move(float x)
+    public void Move(float x, float z)
     {
-        transform.position = new Vector3(x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(x, transform.position.y, z);
     }
 
     public void SideBreak()
@@ -303,7 +305,7 @@ public class Player : MonoBehaviour
         }
 
         rb.AddForce(
-            factor * sidewardForce * Time.fixedDeltaTime,
+            factor * sidewardForce * Time.deltaTime,
             0,
             0,
             ForceMode.VelocityChange

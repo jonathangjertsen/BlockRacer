@@ -51,7 +51,7 @@ public class LevelGen : MonoBehaviour
         bool found = false;
         if ((r, g, b) == (playerR, playerG, playerB))
         {
-            FindObjectOfType<Player>().Move(x * scale);
+            FindObjectOfType<Player>().Move(x * scale, y * scale);
             found = true;
         }
 
