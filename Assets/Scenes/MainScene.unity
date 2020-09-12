@@ -5983,17 +5983,17 @@ MonoBehaviour:
     silverScore: 28000
     bronzeScore: 26000
   - groundMap: {fileID: 2800000, guid: 164cf39694ba3e94ea98d9b018fbec8c, type: 3}
-    goldScore: 1
-    silverScore: 1
-    bronzeScore: 1
+    goldScore: 9000
+    silverScore: 7000
+    bronzeScore: 4500
   - groundMap: {fileID: 2800000, guid: f38e5d0a9980d204abac58714faa01d8, type: 3}
-    goldScore: 1
-    silverScore: 1
-    bronzeScore: 1
+    goldScore: 6000
+    silverScore: 4600
+    bronzeScore: 3300
   - groundMap: {fileID: 2800000, guid: 95f643512f5e0bc418204ca8b6b09c1d, type: 3}
-    goldScore: 1
-    silverScore: 1
-    bronzeScore: 1
+    goldScore: 1000
+    silverScore: 900
+    bronzeScore: 800
   playerR: 255
   playerG: 0
   playerB: 0
