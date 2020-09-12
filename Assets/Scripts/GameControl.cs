@@ -15,7 +15,7 @@ public class GameControl : MonoBehaviour
     public AudioSource dieSource;
     public AudioSource jumpSource;
 
-    public static int level = 3;
+    public static int level = 0;
 
     public float restartDelay;
 
@@ -144,7 +144,7 @@ public class GameControl : MonoBehaviour
 
     public void Pause()
     {
-        if (paused)
+        if (paused || win || gameOver)
         {
             return;
         }
