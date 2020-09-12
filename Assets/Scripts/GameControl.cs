@@ -9,11 +9,10 @@ public class GameControl : MonoBehaviour
     public static int level = 0;
 
     public float restartDelay;
-    public GameObject winScreen;
-    public GameObject failScreen;
 
     private static bool gameOver;
     private static bool win;
+    private static bool paused;
 
     private void Awake()
     {
@@ -72,6 +71,50 @@ public class GameControl : MonoBehaviour
             fs.gameObject.SetActive(true);
         }
         Restart();
+    }
+
+    public void Pause()
+    {
+        if (paused)
+        {
+            return;
+        }
+
+        paused = true;
+        Time.timeScale = 0;
+        PauseScreen ps = FindObjectOfType<PauseScreen>(true);
+        if (ps)
+        {
+            ps.gameObject.SetActive(true);
+        }
+    }
+
+    public void Unpause()
+    {
+        if (!paused)
+        {
+            return;
+        }
+
+        paused = false;
+        Time.timeScale = 1;
+        PauseScreen ps = FindObjectOfType<PauseScreen>(true);
+        if (ps)
+        {
+            ps.gameObject.SetActive(false);
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (paused)
+        {
+            Unpause();
+        }
+        else
+        {
+            Pause();
+        }
     }
 
     public void Restart()

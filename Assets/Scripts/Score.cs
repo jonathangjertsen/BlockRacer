@@ -4,10 +4,15 @@ using TMPro;
 public class Score : MonoBehaviour
 {
     public TMP_Text text;
+    public int score;
 
-    void Update()
+    void FixedUpdate()
     {
-        int score = FindObjectOfType<Player>().UpdateScore();
+        score = FindObjectOfType<Player>().UpdateScore();
+    }
+
+    private void Update()
+    {
         text.text = score.ToString();
     }
 }
