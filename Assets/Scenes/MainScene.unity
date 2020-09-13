@@ -504,7 +504,7 @@ MonoBehaviour:
   match: gold
   text: {fileID: 211976483}
   medal: {fileID: 1387889151}
-  notAchievedColor: {r: 0.7735849, g: 0.73723274, b: 0.53275186, a: 1}
+  notAchievedColor: {r: 0.8867924, g: 0.86704326, b: 0.75293696, a: 1}
   achievedColor: {r: 0.93333334, g: 0.7529412, b: 0, a: 1}
 --- !u!1 &289633740
 GameObject:
@@ -674,7 +674,7 @@ MonoBehaviour:
   match: silver
   text: {fileID: 289633742}
   medal: {fileID: 2127109660}
-  notAchievedColor: {r: 0.6561943, g: 0.67544466, b: 0.6886792, a: 0.70980394}
+  notAchievedColor: {r: 0.86908156, g: 0.8736798, b: 0.8773585, a: 0.70980394}
   achievedColor: {r: 0.46666667, g: 0.7002155, b: 0.8207547, a: 1}
 --- !u!1 &385377715
 GameObject:
@@ -1798,7 +1798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 10c2585ab9e9afc468e84c9944e1ca2a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3344,50 +3344,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974708269}
   m_CullTransparentMesh: 0
---- !u!1 &993131670
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 993131671}
-  - component: {fileID: 993131672}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &993131671
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993131670}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1387889150}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &993131672
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993131670}
-  m_CullTransparentMesh: 0
 --- !u!1 &997724393
 GameObject:
   m_ObjectHideFlags: 0
@@ -4247,7 +4203,7 @@ MonoBehaviour:
   match: bronze
   text: {fileID: 1104866692}
   medal: {fileID: 616480196}
-  notAchievedColor: {r: 0.7924528, g: 0.48593804, b: 0.4882086, a: 0.8784314}
+  notAchievedColor: {r: 0.8679245, g: 0.7614809, b: 0.7614809, a: 0.8784314}
   achievedColor: {r: 0.6603774, g: 0.06852973, b: 0.06852973, a: 1}
 --- !u!1 &1249558035
 GameObject:
@@ -4851,6 +4807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1387889150}
   - component: {fileID: 1387889152}
+  - component: {fileID: 1387889153}
   - component: {fileID: 1387889151}
   m_Layer: 5
   m_Name: GoldImage
@@ -4871,7 +4828,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 211976482}
-  - {fileID: 993131671}
   m_Father: {fileID: 1770264428}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4892,15 +4848,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.8100605, b: 0.31132078, a: 1}
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.77254903, g: 0.7372549, b: 0.53333336, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 7c758093b00fec24fb6e51b888553949, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4917,6 +4873,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387889149}
   m_CullTransparentMesh: 0
+--- !u!212 &1387889153
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387889149}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 3286163911610860551, guid: 619f733f95e42ee4bba9c32278b17578, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.43453053, y: 0.45577008}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1539654596
 GameObject:
   m_ObjectHideFlags: 0
@@ -6433,13 +6440,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.40494838, g: 0.54859275, b: 0.6132076, a: 0.70980394}
+  m_Color: {r: 0.40494838, g: 0.54859275, b: 0.6132076, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d8f38c9a7abcf414f8e946c77a2d5eb8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
